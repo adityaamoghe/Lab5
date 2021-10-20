@@ -1,10 +1,17 @@
 // script.js
 
 const img = new Image(); // used to load image from <input> and draw to canvas
-const myCanvas = document.getElementById("user-image");
-const context = myCanvas.getContext('2d');
+const myCanvas = document.getElementById("user-image"); // reference to HTML canvas element
+const context = myCanvas.getContext('2d');  //gets the context
 
+const imageInp = document.getElementById('image-input'); // referes to user image input
+const botTXT = document.getElementById('text-bottom'); //refers to bottom-text input
+const topTXT = document.getElementById('text-top'); // refers to top-text input
+const myForm = document.getElementById('generate-meme'); //refers to actual form implementation
 
+const generateBTN = document.querySelector("[type='submit']");
+const clearBTN = document.querySelector("[type='reset']");
+const readtextBTN = document.querySelector("[type='button']");
 
 
 

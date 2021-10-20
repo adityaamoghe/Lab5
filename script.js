@@ -14,15 +14,20 @@ const readtextBTN = document.querySelector("[type='button']"); //Selects element
 const generateBTN = document.querySelector("[type='submit']"); //Selects element with type "submit"
 
 
+ 
 
 
 
 // Fires whenever the img object loads a new image (such as with img.src =)
 img.addEventListener('load', () => {
   // In Progress:
+  
+  /* Clearing the Canvas first so we can apply pictures on top */
   context.clearRect(0,0, myCanvas.width, myCanvas.width);
   context.fillStyle = 'black';
   context.clearRect(0,0, myCanvas.width, myCanvas.height);
+
+  const imageDims = getDimmensions(myCanvas.width, myCanvas.height, img.width, img.height);
 
 
 

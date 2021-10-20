@@ -24,12 +24,12 @@ img.addEventListener('load', () => {
 
   /* Clearing the Canvas first so we can apply pictures on top */
   context.clearRect(0,0, myCanvas.width, myCanvas.width);
-  context.fillStyle = 'black';
-  context.clearRect(0,0, myCanvas.width, myCanvas.height);
+  context.fillStyle = 'black';  //fill square in with black
+  context.fillRect(0,0, myCanvas.width, myCanvas.height); //fill back cleared rect
 
-  const imageDims = getDimmensions(myCanvas.width, myCanvas.height, img.width, img.height);
+  const imageDims = getDimmensions(myCanvas.width, myCanvas.height, img.width, img.height); //Image dimensions
 
-  context.drawImage(img, imageDims.startX, imageDims.startY, imageDims.width, imageDims.height);
+  context.drawImage(img, imageDims.startX, imageDims.startY, imageDims.width, imageDims.height); //Draws Image
 
 
 
@@ -40,7 +40,16 @@ img.addEventListener('load', () => {
   // - Fill the whole Canvas with black first to add borders on non-square images, then draw on top
   // - Clear the form when a new image is selected
   // - If you draw the image to canvas here, it will update as soon as a new image is selected
+
 });
+
+imageInp.addEventListener('change', () => {
+
+  img.src  = URL.createObjectURL(imageInp.files[0]);  //Creates a DOMString containing a URL representing the object given in the parameter
+  myCanvas.setAttribute('alt', imageInp.files[0].name); //Sets the attribute
+
+});
+
 
 /**
  * Takes in the dimensions of the canvas and the new image, then calculates the new

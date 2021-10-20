@@ -28,8 +28,8 @@ img.addEventListener('load', () => {
   context.clearRect(0,0, myCanvas.width, myCanvas.height);
 
   const imageDims = getDimmensions(myCanvas.width, myCanvas.height, img.width, img.height);
-  
 
+  context.drawImage(img, imageDims.startX, imageDims.startY, imageDims.width, imageDims.height);
 
 
 

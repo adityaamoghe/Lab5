@@ -1,10 +1,27 @@
 // script.js
 
 const img = new Image(); // used to load image from <input> and draw to canvas
+const myCanvas = document.getElementById("user-image");
+const context = myCanvas.getContext('2d');
+
+
+
+
+
+
 
 // Fires whenever the img object loads a new image (such as with img.src =)
 img.addEventListener('load', () => {
-  // TODO
+  // In Progress:
+  context.clearRect(0,0, myCanvas.width, myCanvas.width);
+  context.fillStyle = 'black';
+  context.clearRect(0,0, myCanvas.width, myCanvas.height);
+
+
+
+
+
+
 
   // Some helpful tips:
   // - Fill the whole Canvas with black first to add borders on non-square images, then draw on top

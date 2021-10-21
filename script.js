@@ -8,20 +8,17 @@ const imageInp = document.getElementById('image-input'); // referes to user imag
 const botTXT = document.getElementById('text-bottom'); //refers to bottom-text input
 const topTXT = document.getElementById('text-top'); // refers to top-text input
 const myForm = document.getElementById('generate-meme'); //refers to actual form implementation
-const vGroup = document.getElementById('volume-group');
-const vSelect = document.getElementById('voice-selection');
+const vGroup = document.getElementById('volume-group'); //refers to volume groupse
+const vSelect = document.getElementById('voice-selection'); //refers to voices we can select
 
 const clearBTN = document.querySelector("[type='reset']");  //Selects element with type "reset"
 const readtextBTN = document.querySelector("[type='button']"); //Selects element with type "button"
 const generateBTN = document.querySelector("[type='submit']"); //Selects element with type "submit"
-const vSlider = document.querySelector("[type='range']");
+const vSlider = document.querySelector("[type='range']"); //Selects element with type "range"
 
-let speechSynth = window.speechSynthesis;
-let vLevel = 1;
-let vArr = [];
-
- 
-
+let speechSynth = window.speechSynthesis; //variale used for Speech Synthesis
+let vLevel = 1; //Temp variable used for volume adjustment
+let vArr = [];  //Empty array that stores the voices
 
 
 // Fires whenever the img object loads a new image (such as with img.src =)
@@ -41,9 +38,6 @@ img.addEventListener('load', () => {
   readtextBTN.disabled = true;
   generateBTN.disabled = false;
   vSelect.disabled = true;
-
-
-
 
   // Some helpful tips:
   // - Fill the whole Canvas with black first to add borders on non-square images, then draw on top
@@ -111,46 +105,19 @@ readtextBTN.addEventListener('click' , () => {
   let botUtterance = new SpeechSynthesisUtterance(botTXT.value);
   botUtterance.volume = vLevel;
 
-  let opt = vSelect.selectedOptions[0].getAttribute('data-name');
-  var iterator = 0;
+  var opt = vSelect.selectedOptions[0].getAttribute('data-name');
 
-  while(iterator < vArr.legnth){
-    if(vArr[iterator] == opt){    
-      topUtterance = vArr[iterator];
-      botUtterance = vArr[iterator];
+  for(var iterator = 0; iterator < vArr.length; iterator++){
+    if(vArr[iterator].name === opt){    
+      topUtterance.voice = vArr[iterator];
+      botUtterance.voice = vArr[iterator];
     }
-    iterator = iterator + 1;
   }
 
   speechSynth.speak(topUtterance);
   speechSynth.speak(botUtterance);
   
 });
-
-
-function populateVoiceList() {
-
-  vArr = speechSynthesis.getVoices();
-  
-  for(var iterator = 0; iterator < vArr.length; iterator++) {
-    var opt = document.createElement('option');
-    opt.textContent = vArr[iterator].name + ' (' + vArr[iterator].lang + ')';
-
-    if(vArr[iterator].default) {
-      opt.textContent += ' -- DEFAULT';
-    }
-
-    opt.setAttribute('data-lang', vArr[iterator].lang);
-    opt.setAttribute('data-name', vArr[iterator].name);
-    document.getElementById("voice-selection").appendChild(opt);
-  }
-
-} 
-
-populateVoiceList();
-if (speechSynthesis.onvoiceschanged !== undefined) {
-  speechSynthesis.onvoiceschanged = populateVoiceList;
-}
 
 vSlider.addEventListener('input', () => {
   
@@ -172,8 +139,27 @@ vSlider.addEventListener('input', () => {
 
 });  
 
- 
+function populateVoiceList() {
+  
+  vArr = speechSynth.getVoices()
+  vSelect.innerHTML = '';
+  
+  for(let iterator = 0; iterator < vArr.length; iterator++) {
+    var option = document.createElement('option');
+    option.textContent = vArr[iterator].name + ' (' + vArr[iterator].lang + ')';
+    option.setAttribute('data-lang', vArr[iterator].lang);
+    option.setAttribute('data-name', vArr[iterator].name);
+    vSelect.appendChild(option);
+  }
 
+} 
+
+populateVoiceList();
+
+if (speechSynth.onvoiceschanged !== undefined && typeof speechSynth !== 'undefined') {
+  speechSynth.onvoiceschanged = populateVoiceList;
+}
+ 
 /**
  * Takes in the dimensions of the canvas and the new image, then calculates the new
  * dimensions of the image so that it fits perfectly into the Canvas and maintains aspect ratio

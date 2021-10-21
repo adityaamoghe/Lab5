@@ -132,24 +132,25 @@ function populateVoiceList() {
 
   vArr = speechSynthesis.getVoices();
   
-  for(var iterator = 0; iterator < voices.length; iterator++) {
+  for(var iterator = 0; iterator < vArr.length; iterator++) {
     var opt = document.createElement('option');
-    opt.textContent = voices[iterator].name + ' (' + voices[iterator].lang + ')';
+    opt.textContent = vArr[iterator].name + ' (' + vArr[iterator].lang + ')';
 
-    if(voices[iterator].default) {
+    if(vArr[iterator].default) {
       opt.textContent += ' -- DEFAULT';
     }
 
-    opt.setAttribute('data-lang', voices[iterator].lang);
-    opt.setAttribute('data-name', voices[iterator].name);
-    vSelect.appendChild(opt);
+    opt.setAttribute('data-lang', vArr[iterator].lang);
+    opt.setAttribute('data-name', vArr[iterator].name);
+    document.getElementById("voice-selection").appendChild(opt);
   }
 
 } 
 
-window.speechSynthesis.onvoiceschanged = function(){
-  populateVoiceList();
-};
+populateVoiceList();
+if (speechSynthesis.onvoiceschanged !== undefined) {
+  speechSynthesis.onvoiceschanged = populateVoiceList;
+}
 
 vSlider.addEventListener('input', () => {
   

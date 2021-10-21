@@ -8,12 +8,14 @@ const imageInp = document.getElementById('image-input'); // referes to user imag
 const botTXT = document.getElementById('text-bottom'); //refers to bottom-text input
 const topTXT = document.getElementById('text-top'); // refers to top-text input
 const myForm = document.getElementById('generate-meme'); //refers to actual form implementation
+const vGroup = document.getElementById('volume-group');
+const vSelect = document.getElementById('voice-selection');
 
 const clearBTN = document.querySelector("[type='reset']");  //Selects element with type "reset"
 const readtextBTN = document.querySelector("[type='button']"); //Selects element with type "button"
 const generateBTN = document.querySelector("[type='submit']"); //Selects element with type "submit"
+const vSlider = document.querySelector("[type='range']");
 
-const vSelect = document.getElementById('voice-selection');
 let speachSynth = window.speechSynthesis;
 let vLevel = 1;
 let vArr = [];
@@ -106,14 +108,14 @@ readtextBTN.addEventListener('click' , () => {
   botUtterance.volume = vLevel;
 
   let opt = vSelect.selectedOptions[0].getAttribute('data-name');
+  var iterator = 0;
 
-  for(var iterator = 0 ; iterator < vArr.legnth; iterator++){
-    
+  while(iterator < vArr.legnth){
     if(vArr[iterator] == opt){    
       topUtterance = vArr[iterator];
       botUtterance = vArr[iterator];
     }
-
+    iterator = iterator + 1;
   }
 
   speachSynth.speak(topUtterance);

@@ -105,7 +105,7 @@ readtextBTN.addEventListener('click' , () => {
   let botUtterance = new SpeechSynthesisUtterance(botTXT.value);
   botUtterance.volume = vLevel;
 
-  let opt = vSelect.selectedOption[0].getAttribute('data-name');
+  let opt = vSelect.selectedOptions[0].getAttribute('data-name');
 
   for(var iterator = 0 ; iterator < vArr.legnth; iterator++){
     

@@ -62,15 +62,18 @@ myForm.addEventListener('submit', (event) => {
   readtextBTN.disabled = false;
   generateBTN.disabled = true;
 
+  /* Stylistic Elements of meme text */
   context.font = '50px Impact';
   context.fillStyle = 'white';
   context.textAlign = 'center';
   context.lineWidth = 2.5;
 
+  /* Fill + Stroke of Bottom Text */
   context.textBaseline = 'bottom';
   context.fillText(botTXT.value , 0.5 * (myCanvas.width), myCanvas.width);
   context.strokeText(botTXT.value , 0.5 * (myCanvas.width), myCanvas.width);
 
+  /* Fill + Stroke of Top Text */
   context.textBaseline = 'top';
   context.fillText(topTXT.value , 0.5 * (myCanvas.width), (myCanvas.width - myCanvas.width));
   context.strokeText(topTXT.value , 0.5 * (myCanvas.width), (myCanvas.width - myCanvas.width))

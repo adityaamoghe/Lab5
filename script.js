@@ -54,8 +54,19 @@ imageInp.addEventListener('change', () => {
 
 myForm.addEventListener('submit', (event) => {
   
-  event.preventDefault(); //Tells user that if the event does not get explicitly handled, its default action should not be taken as it normally would be.
-  
+  /* Tells user that if the event does not get explicitly handled, its default action should not be taken as it normally would be. */
+  event.preventDefault(); 
+
+  context.fillStyle = 'white';
+  context.textAlign = 'center';
+
+  context.textBaseline = "bottom";
+  context.fillText(botTXT.value , 0.5 * (myCanvas.width), myCanvas.width);
+  context.strokeText(botTXT.value , 0.5 * (myCanvas.width), myCanvas.width);
+
+  context.textBaseline = "top";
+  context.fillText(topTXT.value , 0.5 * (myCanvas.width), (myCanvas.width - myCanvas.width));
+  context.strokeText(topTXT.value , 0.5 * (myCanvas.width), (myCanvas.width - myCanvas.width))
 
 
 

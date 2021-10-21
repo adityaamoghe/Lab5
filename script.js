@@ -52,6 +52,17 @@ imageInp.addEventListener('change', () => {
 
 });
 
+myForm.addEventListener('submit', (event) => {
+  
+  event.preventDefault(); //Tells user that if the event does not get explicitly handled, its default action should not be taken as it normally would be.
+  
+
+
+
+
+
+});
+
 
 /**
  * Takes in the dimensions of the canvas and the new image, then calculates the new

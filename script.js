@@ -40,6 +40,7 @@ img.addEventListener('load', () => {
   clearBTN.disabled = false;
   readtextBTN.disabled = true;
   generateBTN.disabled = false;
+  vSelect.disabled = true;
 
 
 
@@ -63,11 +64,6 @@ myForm.addEventListener('submit', (event) => {
   /* Tells user that if the event does not get explicitly handled, its default action should not be taken as it normally would be. */
   event.preventDefault(); 
 
-  /* Button Toggling: */
-  clearBTN.disabled = false;
-  readtextBTN.disabled = false;
-  generateBTN.disabled = true;
-
   /* Stylistic Elements of meme text */
   context.font = '50px Impact';
   context.fillStyle = 'white';
@@ -82,19 +78,27 @@ myForm.addEventListener('submit', (event) => {
   /* Fill + Stroke of Top Text */
   context.textBaseline = 'top';
   context.fillText(topTXT.value , 0.5 * (myCanvas.width), (myCanvas.width - myCanvas.width));
-  context.strokeText(topTXT.value , 0.5 * (myCanvas.width), (myCanvas.width - myCanvas.width))
+  context.strokeText(topTXT.value , 0.5 * (myCanvas.width), (myCanvas.width - myCanvas.width));
+
+  /* Button Toggling: */
+  clearBTN.disabled = false;
+  readtextBTN.disabled = false;
+  generateBTN.disabled = true;
+  vSelect.disabled = false;
 
 });
 
 clearBTN.addEventListener('click' , () => {
 
+  /* Clearing the Canvas first so we can apply pictures on top */
+  context.clearRect(0,0, myCanvas.width, myCanvas.width);
+
   /* Button Toggling: */
   clearBTN.disabled = true;
   readtextBTN.disabled = true;
   generateBTN.disabled = false;
+  vSelect.disabled = true;
 
-  /* Clearing the Canvas first so we can apply pictures on top */
-  context.clearRect(0,0, myCanvas.width, myCanvas.width);
   myForm.reset();
 
 });
@@ -122,6 +126,30 @@ readtextBTN.addEventListener('click' , () => {
   speechSynth.speak(botUtterance);
   
 });
+
+
+function populateVoiceList() {
+
+  vArr = speechSynthesis.getVoices();
+  
+  for(var iterator = 0; iterator < voices.length; iterator++) {
+    var opt = document.createElement('option');
+    opt.textContent = voices[iterator].name + ' (' + voices[iterator].lang + ')';
+
+    if(voices[iterator].default) {
+      opt.textContent += ' -- DEFAULT';
+    }
+
+    opt.setAttribute('data-lang', voices[iterator].lang);
+    opt.setAttribute('data-name', voices[iterator].name);
+    vSelect.appendChild(opt);
+  }
+
+} 
+
+window.speechSynthesis.onvoiceschanged = function(){
+  populateVoiceList();
+};
 
 vSlider.addEventListener('input', () => {
   

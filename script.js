@@ -13,6 +13,10 @@ const clearBTN = document.querySelector("[type='reset']");  //Selects element wi
 const readtextBTN = document.querySelector("[type='button']"); //Selects element with type "button"
 const generateBTN = document.querySelector("[type='submit']"); //Selects element with type "submit"
 
+const vSelect = document.getElementById('voice-selection');
+let speachSynth = window.speechSynthesis;
+let vLevel = 1;
+let vArr = [];
 
  
 
@@ -91,6 +95,30 @@ clearBTN.addEventListener('click' , () => {
   context.clearRect(0,0, myCanvas.width, myCanvas.width);
   myForm.reset();
 
+});
+
+readtextBTN.addEventListener('click' , () => {
+
+  let topUtterance = new SpeechSynthesisUtterance(topTXT.value);
+  topUtterance.volume = vLevel;
+
+  let botUtterance = new SpeechSynthesisUtterance(botTXT.value);
+  botUtterance.volume = vLevel;
+
+  let opt = vSelect.selectedOption[0].getAttribute('data-name');
+
+  for(var iterator = 0 ; iterator < vArr.legnth; iterator++){
+    
+    if(vArr[iterator] == opt){    
+      topUtterance = vArr[iterator];
+      botUtterance = vArr[iterator];
+    }
+
+  }
+
+  speachSynth.speak(topUtterance);
+  speachSynth.speak(botUtterance);
+  
 });
  
 

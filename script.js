@@ -57,14 +57,21 @@ myForm.addEventListener('submit', (event) => {
   /* Tells user that if the event does not get explicitly handled, its default action should not be taken as it normally would be. */
   event.preventDefault(); 
 
+  /* Button Toggling: */
+  clearBTN.disabled = false;
+  readtextBTN.disabled = false;
+  generateBTN.disabled = true;
+
+  context.font = '50px Impact';
   context.fillStyle = 'white';
   context.textAlign = 'center';
+  context.lineWidth = 2.5;
 
-  context.textBaseline = "bottom";
+  context.textBaseline = 'bottom';
   context.fillText(botTXT.value , 0.5 * (myCanvas.width), myCanvas.width);
   context.strokeText(botTXT.value , 0.5 * (myCanvas.width), myCanvas.width);
 
-  context.textBaseline = "top";
+  context.textBaseline = 'top';
   context.fillText(topTXT.value , 0.5 * (myCanvas.width), (myCanvas.width - myCanvas.width));
   context.strokeText(topTXT.value , 0.5 * (myCanvas.width), (myCanvas.width - myCanvas.width))
 

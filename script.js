@@ -20,18 +20,20 @@ const generateBTN = document.querySelector("[type='submit']"); //Selects element
 
 // Fires whenever the img object loads a new image (such as with img.src =)
 img.addEventListener('load', () => {
-  // In Progress:
 
   /* Clearing the Canvas first so we can apply pictures on top */
   context.clearRect(0,0, myCanvas.width, myCanvas.width);
   context.fillStyle = 'black';  //fill square in with black
   context.fillRect(0,0, myCanvas.width, myCanvas.height); //fill back cleared rect
 
+  /* Getting the Dimensions to Draw */
   const imageDims = getDimmensions(myCanvas.width, myCanvas.height, img.width, img.height); //Image dimensions
-
   context.drawImage(img, imageDims.startX, imageDims.startY, imageDims.width, imageDims.height); //Draws Image
 
-
+  /* Button Toggling: */
+  clearBTN.disabled = false;
+  readtextBTN.disabled = true;
+  generateBTN.disabled = false;
 
 
 

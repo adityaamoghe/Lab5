@@ -78,10 +78,6 @@ myForm.addEventListener('submit', (event) => {
   context.fillText(topTXT.value , 0.5 * (myCanvas.width), (myCanvas.width - myCanvas.width));
   context.strokeText(topTXT.value , 0.5 * (myCanvas.width), (myCanvas.width - myCanvas.width))
 
-
-
-
-
 });
 
 

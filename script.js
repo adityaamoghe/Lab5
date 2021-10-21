@@ -80,6 +80,19 @@ myForm.addEventListener('submit', (event) => {
 
 });
 
+clearBTN.addEventListener('click' , () => {
+
+  /* Button Toggling: */
+  clearBTN.disabled = true;
+  readtextBTN.disabled = true;
+  generateBTN.disabled = false;
+
+  /* Clearing the Canvas first so we can apply pictures on top */
+  context.clearRect(0,0, myCanvas.width, myCanvas.width);
+  myForm.reset();
+
+});
+ 
 
 /**
  * Takes in the dimensions of the canvas and the new image, then calculates the new

@@ -16,7 +16,7 @@ const readtextBTN = document.querySelector("[type='button']"); //Selects element
 const generateBTN = document.querySelector("[type='submit']"); //Selects element with type "submit"
 const vSlider = document.querySelector("[type='range']");
 
-let speachSynth = window.speechSynthesis;
+let speechSynth = window.speechSynthesis;
 let vLevel = 1;
 let vArr = [];
 
@@ -118,10 +118,31 @@ readtextBTN.addEventListener('click' , () => {
     iterator = iterator + 1;
   }
 
-  speachSynth.speak(topUtterance);
-  speachSynth.speak(botUtterance);
+  speechSynth.speak(topUtterance);
+  speechSynth.speak(botUtterance);
   
 });
+
+vSlider.addEventListener('input', () => {
+  
+  vLevel = vSlider.value / 100;
+  let pic = vGroup.childNodes[1];
+
+  if(vSlider.value <= 33 && vSlider.value >= 1){
+    pic.src = 'icons/volume-level-1.svg';
+  }
+  else if(vSlider.value <= 66 && vSlider.value >= 34){
+    pic.src = 'icons/volume-level-2.svg';
+  }
+  else if(vSlider.value >= 67){
+    pic.src = 'icons/volume-level-3.svg';
+  }
+  else{
+    pic.src = 'icons/volume-level-0.svg';
+  }
+
+});  
+
  
 
 /**

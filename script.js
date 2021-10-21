@@ -99,14 +99,17 @@ clearBTN.addEventListener('click' , () => {
 
 readtextBTN.addEventListener('click' , () => {
 
+  /* Create a new speech request for top text and bottom text*/
   let topUtterance = new SpeechSynthesisUtterance(topTXT.value);
-  topUtterance.volume = vLevel;
-
   let botUtterance = new SpeechSynthesisUtterance(botTXT.value);
+
+  /* Fix the volumes */
+  topUtterance.volume = vLevel;
   botUtterance.volume = vLevel;
 
-  var opt = vSelect.selectedOptions[0].getAttribute('data-name');
+  var opt = vSelect.selectedOptions[0].getAttribute('data-name'); //gets the user selected option
 
+  /* Loops thrugh our voices array and assigns the top and bottom voice to the one user chose */
   for(var iterator = 0; iterator < vArr.length; iterator++){
     if(vArr[iterator].name === opt){    
       topUtterance.voice = vArr[iterator];
@@ -114,16 +117,17 @@ readtextBTN.addEventListener('click' , () => {
     }
   }
 
-  speechSynth.speak(topUtterance);
-  speechSynth.speak(botUtterance);
+  speechSynth.speak(topUtterance);  //Speak top text
+  speechSynth.speak(botUtterance);  //Speak bottom text
   
 });
 
 vSlider.addEventListener('input', () => {
   
-  vLevel = vSlider.value / 100;
-  let pic = vGroup.childNodes[1];
+  vLevel = vSlider.value / 100; //adjust the volume level
+  let pic = vGroup.childNodes[1]; //variable that stores the sound icon pic
 
+  /* Cases for 4 possible sound icons */
   if(vSlider.value <= 33 && vSlider.value >= 1){
     pic.src = 'icons/volume-level-1.svg';
   }
@@ -141,20 +145,21 @@ vSlider.addEventListener('input', () => {
 
 function populateVoiceList() {
   
-  vArr = speechSynth.getVoices()
+  vArr = speechSynth.getVoices()  //Stores voices into arr
   vSelect.innerHTML = '';
-  
+
+  /* Lops through our voices array */
   for(let iterator = 0; iterator < vArr.length; iterator++) {
-    var option = document.createElement('option');
-    option.textContent = vArr[iterator].name + ' (' + vArr[iterator].lang + ')';
-    option.setAttribute('data-lang', vArr[iterator].lang);
-    option.setAttribute('data-name', vArr[iterator].name);
-    vSelect.appendChild(option);
+    var opt = document.createElement('option'); 
+    opt.textContent = vArr[iterator].name + ' (' + vArr[iterator].lang + ')';
+    opt.setAttribute('data-lang', vArr[iterator].lang);
+    opt.setAttribute('data-name', vArr[iterator].name);
+    vSelect.appendChild(opt);
   }
 
-} 
+};
 
-populateVoiceList();
+populateVoiceList(); //function call
 
 if (speechSynth.onvoiceschanged !== undefined && typeof speechSynth !== 'undefined') {
   speechSynth.onvoiceschanged = populateVoiceList;
